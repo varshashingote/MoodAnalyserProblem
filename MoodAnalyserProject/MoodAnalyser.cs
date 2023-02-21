@@ -8,29 +8,32 @@ namespace MoodAnalyserProject
 {
     public class MoodAnalyser
     {
-
-
         public string message;
-        /// <summary>
-        /// Initializes a new instances of the <see cref="= "MoodAnalyser"/>class.
-        /// </summary>
-        public MoodAnalyser()
-        {
-        }
         public MoodAnalyser(string message)
         {
             this.message = message;
         }
         public string AnalyseMood(string message)
         {
-            if (message.ToUpper().Contains("SAD"))
+            try
             {
-                return "SAD";
+                if (message.ToUpper().Contains("SAD"))
+                {
+
+                    return "SAD";
+                }
+                else
+                {
+                    return "HAPPY";
+                }
+               
             }
-            else
+            catch (NullReferenceException ex)
             {
                 return "HAPPY";
             }
+
+
         }
 
     }
