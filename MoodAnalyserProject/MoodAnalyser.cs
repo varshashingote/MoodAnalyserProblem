@@ -13,28 +13,34 @@ namespace MoodAnalyserProject
         {
             this.message = message;
         }
-        public string AnalyseMood(string message)
+        public string AnalyseMood()
         {
             try
             {
-                if (message.ToUpper().Contains("SAD"))
+                if(message.ToLower().Contains("sad"))
                 {
 
                     return "SAD";
+                }
+               
+               else if(message.Equals(String.Empty))
+                {
+                    throw new CustomException("Message is empty", CustomException.ExceptionType.Empty_Mood);
                 }
                 else
                 {
                     return "HAPPY";
                 }
-               
+
             }
             catch (NullReferenceException ex)
             {
-                return "HAPPY";
-            }
+                throw new CustomException("Message is Null", CustomException.ExceptionType.Null_Mood);
 
+            }
 
         }
 
     }
 }
+          

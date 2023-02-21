@@ -6,16 +6,46 @@ namespace UnitTestProject1
     [TestClass]
     public class MoodAnalyerTestClass
     {
-        [TestMethod ]
-        public void GivenNullMoodShouldReturnHAPPY()
+        [TestMethod]
+        public void Given_Message_Should_Return_UserMethod()
         {
-            string expected = "HAPPY";
-            string message = "NULL";
-            MoodAnalyser moodAnalyse = new MoodAnalyser(message);
-            string mood = moodAnalyse.AnalyseMood(message);
-            Assert.AreEqual(expected, mood);
-        }
+            
+                String message = null;
+                String exceptedValue = "Message is Null";
+            try { 
+                MoodAnalyser mood = new MoodAnalyser(message);
+                //Act
+                String result = mood.AnalyseMood();
+                Assert.AreEqual(exceptedValue, result);
+            }
+            catch(CustomException ex)
+            {
 
+                Assert.AreEqual(exceptedValue, ex.Message);
+            }
+        }
+        [TestMethod]
+        public void GivenSadMoodMessage_WhenAnalyse_ShouldReturnSAD()
+        {
+            string message = "";
+            string expectedValue = "Message is empty";
+            try
+            {
+
+
+                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
+
+                string result = moodAnalyser.AnalyseMood();
+
+                Assert.AreEqual(expectedValue, result);
+            }
+            catch(CustomException ex)
+            {
+                Assert.AreEqual(expectedValue, ex.Message);
+            }
+        }
     }
 }
+
+
 
