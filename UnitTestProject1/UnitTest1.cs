@@ -175,15 +175,49 @@ namespace UnitTestProject1
             Assert.AreEqual(excepted, mood);
 
         }
-
+        [TestMethod]
+        public void GiveHappyMessageWithReflectorShouldReturnHAPPY()
+        {
+            string result = MoodAnalyserFactory.SetField("HAPPY", "message");
+            Assert.AreEqual("HAPPY", result);
+        }
+        /// <summary>
+        ///  /*TC7.2 Set Field When Improper Should Throw Exception with No Such Field*/
+        /// </summary>
+        [TestMethod]
+        public void SetFieldWhenImproperShouldThrowExceptionwithNoSuchField()
+        {
+            string expected = "Field is Not Found";
+            try
+            {
+                string mood = MoodAnalyserFactory.SetField("Happy", "Customer");
+            }
+            catch (CustomException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
+        /// <summary>
+        ///  /*TC7.3 Setting Null Message with Reflector Should Throw Exception*/
+        /// </summary>
+        [TestMethod]
+        public void SetNullMessagewithReflectorShouldThrowException()
+        {
+            string expected = "Message should not be null";
+            try
+            {
+                string mood = MoodAnalyserFactory.SetField(null, "AnalyserMood");
+            }
+            catch (CustomException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(expected, ex.Message);
+            }
+        }
     }
-
-
-
 }
 
-
-    
     
     
 

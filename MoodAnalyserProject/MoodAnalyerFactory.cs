@@ -87,7 +87,31 @@ namespace MoodAnalyserProject
                 throw new  CustomException("No_Such_Method" ,CustomException.ExceptionType.NO_SUCH_METHOD);
             }
         }
+        public static string SetField(string message, string fieldName)
+        {
+            try
+            {
+                MoodAnalyser moodAnalyser = new MoodAnalyser();
+                Type type = typeof(MoodAnalyser);
+                FieldInfo field = type.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
+                if (message == null)
+                {
+                    Console.WriteLine("Setting \"Null\" message with Reflector should throw Exception ");
+                    throw new CustomException("Message should not be null", CustomException.ExceptionType.NO_SUCH_FIELD);
+                }
+                field.SetValue(moodAnalyser, message);
+             
+                return moodAnalyser.message;
+            }
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Set field when Improper ==> \"{0}\" should \nthrow Exception ", fieldName);
+                throw new CustomException("Field is Not Found", CustomException.ExceptionType.NO_SUCH_FIELD);
+            }
+        }
     }
 }
 
+
+ 
 
