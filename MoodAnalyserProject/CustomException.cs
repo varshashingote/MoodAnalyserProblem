@@ -13,8 +13,9 @@ namespace MoodAnalyserProject
             {
                 Null_Mood,
                 Empty_Mood,
-            NO_SUCH_CLASS,
-            NO_SUCH_CONSTRUCTOR,
+                NO_SUCH_CLASS,
+                NO_SUCH_CONSTRUCTOR,
+            NO_SUCH_METHOD,
         }
             public CustomException(String message, ExceptionType exception) : base(message)
             {

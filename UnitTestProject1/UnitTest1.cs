@@ -144,7 +144,35 @@ namespace UnitTestProject1
                 Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
+        [TestCategory("Reflection")]
+        [DataRow("MoodAnalyserProject.MoodAnalyser", "MoodAnalyser")]//UC4.1Check Two Object are equal or not
+        [DataRow("MoodAnalyser", "MoodAnalyser")]//UC4.2 Improper class name and throws error
+        [DataRow("MoodAnalyserProject.MoodAnalyser", "Mood")]//UC4.2 Improper Constructor name and throw exception
+        [TestMethod]
+        public void GivenMoodAnalyerclassName_ReturnMoodAnalyerObjectofthatClass(String className, String constructorname)
+        {
+            try
+            {
+                Object excepted = new MoodAnalyser();
+                object actual = MoodAnalyserFactory.CreateMoodAnalyse(className, constructorname);
+                excepted.Equals(actual);
+            }
+            catch (CustomException ex)
+            {
+                Assert.AreEqual(ex.Message, "Constructor is not found");
+            }
+            catch (Exception ex)
+            {
+                Assert.AreEqual(ex.Message, "Class not found");
+            }
+        }
+
     }
+
+
+
+
+
 }
 
 
