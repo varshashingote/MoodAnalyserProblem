@@ -165,11 +165,18 @@ namespace UnitTestProject1
             {
                 Assert.AreEqual(ex.Message, "Class not found");
             }
+
+        }
+        [TestMethod] //UC^.1 Given Happy return happy.
+        public void GivenHappyMoodShouldReturnhapppy()
+        {
+            String excepted = "HAPPY";
+            String mood = MoodAnalyserFactory.InvokeAnalyseMood("Happy", "AnalyseMood");
+            Assert.AreEqual(excepted, mood);
+
         }
 
     }
-
-
 
 
 
