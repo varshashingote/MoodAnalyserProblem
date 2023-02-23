@@ -9,6 +9,7 @@ namespace MoodAnalyserProject
     public class MoodAnalyser
     {
         public string message;
+        public MoodAnalyser() { }
         public MoodAnalyser(string message)
         {
             this.message = message;
@@ -19,23 +20,23 @@ namespace MoodAnalyserProject
             {
                 if(message.ToLower().Contains("sad"))
                 {
-
+                    Console.WriteLine("Given message \"{0}\" then \n retuern SAD",message);
                     return "SAD";
                 }
                
-               else if(message.Equals(String.Empty))
-                {
-                    throw new CustomException("Message is empty", CustomException.ExceptionType.Empty_Mood);
-                }
+             
                 else
                 {
+                    Console.WriteLine("Given message \"{0}\" then \n retuern HAPPY", message);
                     return "HAPPY";
                 }
 
             }
             catch (NullReferenceException ex)
             {
-                throw new CustomException("Message is Null", CustomException.ExceptionType.Null_Mood);
+                Console.WriteLine("Given message \"{0}\" then \n retuern MoodAnalysisException",ex.Message);
+                return "HAPPY";
+  
 
             }
 
