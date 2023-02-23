@@ -6,46 +6,150 @@ namespace UnitTestProject1
     [TestClass]
     public class MoodAnalyerTestClass
     {
+        /// <summary>
+        ///  /*TC1.1 Given “I am in Sad Mood” message Should Return SAD*/
+        ///  /*TC1.2 Given “I am in Any Mood” message Should Return HAPPY*/
+        ///  TC2.1-Given NULL mood Should Return HAPPY
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="excepted"></param>
         [TestMethod]
-        public void Given_Message_Should_Return_UserMethod()
+        [DataRow("I am in Sad Mood", "SAD")]
+        [DataRow("I am in Any Mood", "HAPPY")]
+        //[DataRow(null, "HAPPY")]
+        public void GivenMessageWhenAnalyzerShouldReturnMood(string message, string excepted)
         {
-            
-                String message = null;
-                String exceptedValue = "Message is Null";
-            try { 
-                MoodAnalyser mood = new MoodAnalyser(message);
-                //Act
-                String result = mood.AnalyseMood();
-                Assert.AreEqual(exceptedValue, result);
-            }
-            catch(CustomException ex)
-            {
+            //AAA Methodology
+            //Arrange
+            MoodAnalyser mood = new MoodAnalyser(message);
 
-                Assert.AreEqual(exceptedValue, ex.Message);
-            }
+            //Act
+            string actual = mood.AnalyseMood();
+
+            //Assert
+            Assert.AreEqual(excepted, actual);
         }
+      
         [TestMethod]
-        public void GivenSadMoodMessage_WhenAnalyse_ShouldReturnSAD()
+        [DataRow(null, "HAPPY")]
+        //UC2-GivenNull return happy
+        public void GivenNULLMessageWhenAnalyzerShouldReturnHAPPYMood(string message, string excepted)
         {
-            string message = "";
-            string expectedValue = "Message is empty";
+            //AAA Methodology
+            //Arrange
+            MoodAnalyser mood = new MoodAnalyser(message);
+
+            //Act
+            string actual = mood.AnalyseMood();
+
+            //Assert
+            Assert.AreEqual(excepted, actual);
+        }
+
+        /// <summary>
+        /// TC3.1-Given NULL mood Should Throw MoodAnalysisException
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="excepted"></param>
+        [TestMethod]
+        [DataRow(null, "Message is having null")]
+        public void GivenNULLMoodWhenAnalyzerShouldThrowMoodAnalysisException(string message, string excepted)
+        {
             try
             {
+                //AAA Methodology
+                //Arrange
+                MoodAnalyser mood = new MoodAnalyser(message);
 
+                //Act
+                string actual = mood.AnalyseMood();
 
-                MoodAnalyser moodAnalyser = new MoodAnalyser(message);
-
-                string result = moodAnalyser.AnalyseMood();
-
-                Assert.AreEqual(expectedValue, result);
+                //Assert
+                Assert.AreEqual(excepted, actual);
             }
-            catch(CustomException ex)
+            catch (CustomException ex)
             {
-                Assert.AreEqual(expectedValue, ex.Message);
+                Assert.AreEqual(excepted, ex.Message);
+            }
+        }
+   
+        [TestMethod]
+        [DataRow("", "Message is having empty")]
+        public void GivenEMPTYMoodWhenAnalyzerShouldThrowMoodAnalysisException(string message, string excepted)
+        {
+            try
+            {
+                //AAA Methodology
+                //Arrange
+                MoodAnalyser mood = new MoodAnalyser(message);
+
+                //Act
+                string actual = mood.AnalyseMood();
+
+                //Assert
+                Assert.AreEqual(excepted, actual);
+            }
+            catch (CustomException ex)
+            {
+                Assert.AreEqual(excepted, ex.Message);
+            }
+        }  /// <summary>
+           /// TC4.1- Given MoodAnalyser ClassName Should Return MoodAnalyser Object
+           /// </summary>
+        [TestMethod]
+        public void GivenMoodAnalyserClassNameShouldReturnMoodAnalyserObject()
+        {
+            object excepted = new MoodAnalyser();
+            object obj = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");
+            excepted.Equals(obj);
+        }
+
+        /// <summary>
+        /// /*TC4.2 Given Class Name When Improper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassNameWhenImproperShouldThrowMoodAnalyserExpection()
+        {
+            string exceptedMsg = "Class Not Found";
+            try
+            {
+                // MoodAnalyser actual = (MoodAnalyser)MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "MoodAnalyser");//proper className and prober constructorname
+                Object excepted = new MoodAnalyser();
+                object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.Customer", "Customer");
+                actual.Equals(excepted);
+            }
+            catch (CustomException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(exceptedMsg, ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// /*TC4.3- GivenClassWhenConstructorNotProper_ShouldThrowMoodAnalyserExpection*/
+        /// </summary>
+        [TestMethod]
+        public void GivenClassWhenConstructorNotProperShouldThrowMoodAnalyserExpection()
+        {
+            string exceptedMsg = "Constructor is not found";
+            try
+            {
+                Object excepted = new MoodAnalyser();
+                Object actual = MoodAnalyserFactory.CreateMoodAnalyse("MoodAnalyzerProblem.MoodAnalyser", "Customer");
+                actual.Equals(excepted);
+            }
+            catch (CustomException ex)
+            {
+                Console.Write("\"{0}\"", ex.Message);
+                Assert.AreEqual(exceptedMsg, ex.Message);
             }
         }
     }
 }
 
 
+    
+    
+    
 
+      
