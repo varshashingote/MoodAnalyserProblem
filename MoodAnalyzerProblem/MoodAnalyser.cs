@@ -18,13 +18,9 @@ namespace MoodAnalyzerProblem
         }
         public string AnalyseMood()
         {
-            if (message == string.Empty)
-            {
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Message is Empty");
-            }
             try
             {
-                if (message.Contains("Sad"))
+                if (message.ToLower.Contains("Sad"))
                 {
                     return "SAD";
                 }
@@ -33,9 +29,9 @@ namespace MoodAnalyzerProblem
                     return "HAPPY";
                 }
             }
-            catch (MoodAnalyserException)
+            catch (NullReferenceException ex)
             {
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Message is Null");
+                return "HAPPY";
             }
         }
     }
