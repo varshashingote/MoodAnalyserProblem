@@ -8,23 +8,13 @@ namespace MoodAnalyzerProblem
 {
     public class MoodAnalyser
     {
-        public string message;
-        public MoodAnalyser()
+      /*UC1Given a Message, ability
+        to analyse and respond
+         Happy or Sad Mood*/
+        
+        public string MoodAnalyser(string message)
         {
-        }
-        public MoodAnalyser(string message)
-        {
-            this.message = message;
-        }
-        public string AnalyseMood()
-        {
-            if (message == string.Empty)
-            {
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CLASS, "Message is Empty");
-            }
-            try
-            {
-                if (message.Contains("Sad"))
+                if (message.ToLower().Contains("Sad"))
                 {
                     return "SAD";
                 }
@@ -33,10 +23,7 @@ namespace MoodAnalyzerProblem
                     return "HAPPY";
                 }
             }
-            catch (MoodAnalyserException)
-            {
-                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD, "Message is Null");
-            }
+            
         }
     }
 }
